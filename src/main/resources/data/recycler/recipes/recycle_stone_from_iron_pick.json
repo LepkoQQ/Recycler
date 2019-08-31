@@ -3,11 +3,8 @@
   "ingredient": {
     "item": "minecraft:iron_pickaxe"
   },
-  "result": {
-    "item": "minecraft:stone",
-    "count": 2
-  },
+  "result": "minecraft:iron_ingot",
   "experience": 1.0,
-  "cookingtime": 10,
+  "cookingtime": 100,
   "max_output": 3
 }

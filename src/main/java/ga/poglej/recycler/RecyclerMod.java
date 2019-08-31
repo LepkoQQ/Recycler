@@ -1,5 +1,6 @@
 package ga.poglej.recycler;
 
+import ga.poglej.recycler.recipe.BlastingRecyclingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -10,14 +11,13 @@ import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
+
 @Mod(RecyclerMod.MOD_ID)
 public class RecyclerMod {
-    public static final String MOD_ID = "recycler";
+    static final String MOD_ID = "recycler";
 
     private static final Logger LOGGER = LogManager.getLogger();
-
-    @ObjectHolder(RecyclerMod.MOD_ID)
-    public static final IRecipeSerializer<BlastingRecyclingRecipe> BLASTING_RECYCLING = null;
 
     public RecyclerMod() {
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
@@ -26,5 +26,20 @@ public class RecyclerMod {
     @SubscribeEvent
     public void registerRecipeSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
         event.getRegistry().register(new BlastingRecyclingRecipe.Serializer().setRegistryName(new ResourceLocation(RecyclerMod.MOD_ID, "blasting_recycling")));
+    }
+
+    @ObjectHolder(RecyclerMod.MOD_ID)
+    public static class Objects {
+        public static final IRecipeSerializer<BlastingRecyclingRecipe> BLASTING_RECYCLING = Null();
+
+        /**
+         * Returns null, but annotated @Nonnull
+         * Used for @ObjectHolder initialization to prevent IntelliJ from complaining
+         */
+        @SuppressWarnings({"ConstantConditions", "SameReturnValue"})
+        @Nonnull
+        private static <T> T Null() {
+            return null;
+        }
     }
 }

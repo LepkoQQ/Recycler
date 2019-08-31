@@ -1,7 +1,8 @@
-package ga.poglej.recycler;
+package ga.poglej.recycler.recipe;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import ga.poglej.recycler.RecyclerMod;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.BlastingRecipe;
@@ -17,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 public class BlastingRecyclingRecipe extends BlastingRecipe {
     private int maxOutput;
 
-    public BlastingRecyclingRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int cookTimeIn, int maxOutput) {
+    private BlastingRecyclingRecipe(ResourceLocation idIn, String groupIn, Ingredient ingredientIn, ItemStack resultIn, float experienceIn, int cookTimeIn, int maxOutput) {
         super(idIn, groupIn, ingredientIn, resultIn, experienceIn, cookTimeIn);
         this.maxOutput = maxOutput;
     }
@@ -29,21 +30,19 @@ public class BlastingRecyclingRecipe extends BlastingRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        ItemStack result = this.result;
-        result.setCount(this.maxOutput + 2);
-        return result;
+        return ItemStack.EMPTY;
     }
 
     @Override
     public ItemStack getCraftingResult(IInventory inv) {
-        ItemStack result = this.result;
-        result.setCount(this.maxOutput + 5);
+        ItemStack result = this.result.copy();
+        result.setCount(this.maxOutput);
         return result;
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return RecyclerMod.BLASTING_RECYCLING;
+        return RecyclerMod.Objects.BLASTING_RECYCLING;
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlastingRecyclingRecipe> {
@@ -73,13 +72,13 @@ public class BlastingRecyclingRecipe extends BlastingRecipe {
 
         @Override
         public BlastingRecyclingRecipe read(final ResourceLocation recipeId, final PacketBuffer buffer) {
-            String s = buffer.readString(32767);
+            String group = buffer.readString(32767);
             Ingredient ingredient = Ingredient.read(buffer);
-            ItemStack itemstack = buffer.readItemStack();
-            float f = buffer.readFloat();
-            int i = buffer.readVarInt();
+            ItemStack result = buffer.readItemStack();
+            float experience = buffer.readFloat();
+            int cookTime = buffer.readVarInt();
             int maxOutput = buffer.readVarInt();
-            return new BlastingRecyclingRecipe(recipeId, s, ingredient, itemstack, f, i, maxOutput);
+            return new BlastingRecyclingRecipe(recipeId, group, ingredient, result, experience, cookTime, maxOutput);
         }
 
         @Override
