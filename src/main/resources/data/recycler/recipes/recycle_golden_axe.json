@@ -1,15 +1,14 @@
 {
   "type": "recycler:blasting_recycling",
   "ingredient": {
-    "item": "minecraft:iron_pickaxe"
+    "item": "minecraft:golden_axe"
   },
   "results": [
-    "minecraft:iron_ingot",
+    "minecraft:gold_ingot",
     {
-      "item": "minecraft:iron_nugget",
+      "item": "minecraft:gold_nugget",
       "count": 9
     }
   ],
-  "cookingtime": 100,
   "max_output": 3
 }
