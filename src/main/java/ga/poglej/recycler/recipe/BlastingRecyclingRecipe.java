@@ -16,12 +16,14 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.LinkedList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class BlastingRecyclingRecipe extends BlastingRecipe {
     private int maxOutput;
@@ -45,8 +47,25 @@ public class BlastingRecyclingRecipe extends BlastingRecipe {
 
     @Override
     public ItemStack getCraftingResult(IInventory inv) {
-        ItemStack result = this.results.get(1).copy();
-        result.setCount(result.getCount() * this.maxOutput);
+        ItemStack input = inv.getStackInSlot(0);
+        double percentDamage = (double) (input.getMaxDamage() - input.getDamage()) / input.getMaxDamage();
+        double percentResources = percentDamage * this.maxOutput;
+        List<Double> resultAmounts = this.results.stream()
+                .map(stack -> stack.getCount() * percentResources)
+                .collect(Collectors.toList());
+        Optional<Integer> index = IntStream.range(0, resultAmounts.size()).boxed()
+                .filter(i -> resultAmounts.get(i) >= 1)
+                .min(Comparator.comparing(resultAmounts::get));
+        if (!index.isPresent()) {
+            index = IntStream.range(0, this.results.size()).boxed()
+                    .filter(i -> !this.results.get(i).isEmpty())
+                    .max(Comparator.comparing((i) -> this.results.get(i).getCount()));
+        }
+        if (!index.isPresent()) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack result = this.results.get(index.get()).copy();
+        result.setCount(Math.max(resultAmounts.get(index.get()).intValue(), 1));
         return result;
     }
 
@@ -65,6 +84,9 @@ public class BlastingRecyclingRecipe extends BlastingRecipe {
             Ingredient ingredient = Ingredient.deserialize(jsonIngredient);
 
             JsonArray jsonResults = JSONUtils.getJsonArray(json, "results");
+            if (jsonResults.size() < 1) {
+                throw new JsonSyntaxException("Need at least one result in results array");
+            }
             NonNullList<ItemStack> results = NonNullList.withSize(jsonResults.size(), ItemStack.EMPTY);
             for (int i = 0; i < jsonResults.size(); i++) {
                 JsonElement jsonResult = jsonResults.get(i);
