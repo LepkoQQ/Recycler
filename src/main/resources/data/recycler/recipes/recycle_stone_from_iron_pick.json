@@ -1,0 +1,13 @@
+{
+  "type": "recycler:blasting_recycling",
+  "ingredient": {
+    "item": "minecraft:iron_pickaxe"
+  },
+  "result": {
+    "item": "minecraft:stone",
+    "count": 2
+  },
+  "experience": 1.0,
+  "cookingtime": 10,
+  "max_output": 3
+}
