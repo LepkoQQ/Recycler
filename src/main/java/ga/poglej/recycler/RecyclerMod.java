@@ -1,6 +1,8 @@
 package ga.poglej.recycler;
 
 import ga.poglej.recycler.recipe.BlastingRecyclingRecipe;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -28,9 +30,16 @@ public class RecyclerMod {
         event.getRegistry().register(new BlastingRecyclingRecipe.Serializer().setRegistryName(new ResourceLocation(RecyclerMod.MOD_ID, "blasting_recycling")));
     }
 
+    @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().register(new Item(new Item.Properties().group(ItemGroup.MISC)).setRegistryName(RecyclerMod.MOD_ID, "diamond_nugget"));
+    }
+
     @ObjectHolder(RecyclerMod.MOD_ID)
     public static class Objects {
         public static final IRecipeSerializer<BlastingRecyclingRecipe> BLASTING_RECYCLING = Null();
+
+        public static final Item DIAMOND_NUGGET = Null();
 
         /**
          * Returns null, but annotated @Nonnull
