@@ -1,0 +1,14 @@
+{
+  "type": "recycler:blasting_recycling",
+  "ingredient": {
+    "item": "minecraft:diamond_shovel"
+  },
+  "results": [
+    "minecraft:diamond",
+    {
+      "item": "recycler:diamond_nugget",
+      "count": 9
+    }
+  ],
+  "max_output": 1
+}
