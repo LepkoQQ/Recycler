@@ -1,14 +1,10 @@
 {
-  "type": "recycler:blasting_recycling",
+  "type": "minecraft:blasting",
   "ingredient": {
     "item": "minecraft:golden_horse_armor"
   },
-  "results": [
-    "minecraft:gold_ingot",
-    {
-      "item": "minecraft:gold_nugget",
-      "count": 9
-    }
-  ],
-  "max_output": 6
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 6
+  }
 }
