@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:diamond_horse_armor"
-  },
-  "result": "recycler:diamond_nugget"
-}
