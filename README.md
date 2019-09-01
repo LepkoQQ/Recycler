@@ -1,6 +1,6 @@
 # Recycler
 
-## Minecraft mod that allows you to recycle your damaged tools and armor.
+## Minecraft mod that allows you to recycle your damaged tools and armor in the blast furnace.
 
 ---
 
