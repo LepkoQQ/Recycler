@@ -1,0 +1,14 @@
+{
+  "type": "recycler:blasting_recycling",
+  "ingredient": {
+    "item": "minecraft:golden_chestplate"
+  },
+  "results": [
+    "minecraft:gold_ingot",
+    {
+      "item": "minecraft:gold_nugget",
+      "count": 9
+    }
+  ],
+  "max_output": 8
+}

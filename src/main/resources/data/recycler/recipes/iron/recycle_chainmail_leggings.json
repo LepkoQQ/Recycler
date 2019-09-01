@@ -1,0 +1,14 @@
+{
+  "type": "recycler:blasting_recycling",
+  "ingredient": {
+    "item": "minecraft:chainmail_leggings"
+  },
+  "results": [
+    "minecraft:iron_ingot",
+    {
+      "item": "minecraft:iron_nugget",
+      "count": 9
+    }
+  ],
+  "max_output": 7
+}
