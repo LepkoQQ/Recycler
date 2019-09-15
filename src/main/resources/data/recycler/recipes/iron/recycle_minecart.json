@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:minecart"
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 5
+  }
+}
