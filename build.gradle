@@ -13,14 +13,14 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0'
+version = '1.1.0'
 group = 'ga.poglej'
 archivesBaseName = 'recycler'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190830-1.14.3'
+    mappings channel: 'snapshot', version: '20190915-1.14.3'
     runs {
         client {
             workingDirectory project.file('run')
@@ -47,7 +47,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.75'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.1'
 }
 
 jar {
